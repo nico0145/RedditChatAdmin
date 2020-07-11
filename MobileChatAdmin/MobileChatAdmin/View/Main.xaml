@@ -1,0 +1,74 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             x:Class="MobileChatAdmin.View.Main">
+    <ContentPage.Content>
+        <StackLayout>
+            <Picker x:Name="cmbChannel" SelectedIndexChanged="cmbChannel_SelectedIndexChanged"></Picker>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="80"/>
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+                <BoxView Grid.Row="0" Grid.Column="0" VerticalOptions="Center"/>
+                <Label Text="User:" Grid.Column="0" VerticalOptions="Center"></Label>
+                <BoxView Grid.Row="0" Grid.Column="1" VerticalOptions="Center" Grid.ColumnSpan="2" />
+                <Entry x:Name="txtUser" Grid.Column="1" VerticalOptions="Center" Grid.ColumnSpan="2"></Entry>
+            </Grid>
+            <Grid BackgroundColor="LightGray">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="80"/>
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+                <BoxView Grid.Row="0"  Grid.Column="0"  VerticalOptions="Center"/>
+                <Label Text="Tiempo:" Grid.Row="0" Grid.Column="0" VerticalOptions="Center"></Label>
+                <BoxView Grid.Row="0" Grid.Column="1"  VerticalOptions="Center" />
+                <Entry x:Name="txtTime" Grid.Row="0" Grid.Column="1" VerticalOptions="Center"></Entry>
+                <BoxView Grid.Row="0" Grid.Column="2"  VerticalOptions="Center" />
+                <Picker x:Name="cmbTime" Grid.Row="0" Grid.Column="2">
+                    <Picker.ItemsSource>
+                        <x:Array Type="{x:Type x:String}">
+                            <x:String>Segundos</x:String>
+                            <x:String>Minutos</x:String>
+                            <x:String>Horas</x:String>
+                            <x:String>Dias</x:String>
+                            <x:String>Semanas</x:String>
+                            <x:String>Meses</x:String>
+                            <x:String>Años</x:String>
+                            <x:String>Permanente</x:String>
+                        </x:Array>
+                    </Picker.ItemsSource>
+                </Picker>
+                <BoxView Grid.Row="1" Grid.Column="1" VerticalOptions="Center"/>
+                <Button Grid.Row="1" Text="Ban" x:Name="cmdBan" Grid.Column="1" Clicked="cmdBan_Clicked"></Button>
+                <BoxView Grid.Row="1" Grid.Column="2"  VerticalOptions="Center"  />
+                <Button Grid.Row="1" Text="Mute" x:Name="cmdMute" Grid.Column="2"  Clicked="cmdMute_Clicked"></Button>
+            </Grid>
+            <Grid BackgroundColor="LightGray">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="80"/>
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+                <BoxView Grid.Row="0" Grid.Column="1"  VerticalOptions="Center"/>
+                <Button Grid.Row="0" Text="Unban" x:Name="cmdUnBan" Grid.Column="1" Clicked="cmdUnBan_Clicked"></Button>
+                <BoxView Grid.Row="0" Grid.Column="2" VerticalOptions="Center"  />
+                <Button Grid.Row="0" Text="Unmute" x:Name="cmdUnMute" Grid.Column="2"  Clicked="cmdUnMute_Clicked"></Button>
+            </Grid>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

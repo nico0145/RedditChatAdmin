@@ -45,6 +45,7 @@ namespace SendBirdAPI
     public class User
     {
         public string phone_number { get; set; }
+        public bool is_blocked_by_me { get; set; }
         public string nickname { get; set; }
         public string user_id { get; set; }
         public string profile_url { get; set; }
@@ -63,7 +64,7 @@ namespace SendBirdAPI
         public string nickname { get; set; }
         public object phone_number { get; set; }
         public string profile_url { get; set; }
-        public int remaining_duration { get; set; }
+        public long remaining_duration { get; set; }
         public double start_at { get; set; }
         public string user_id { get; set; }
         public override string ToString()
@@ -296,5 +297,202 @@ namespace SendBirdAPI
         public string kind { get; set; }
         public Data data { get; set; }
     }
+    public class Channel
+    {
+        public string channel_url { get; set; }
+        public string cover_url { get; set; }
+        public int created_at { get; set; }
+        public string custom_type { get; set; }
+        public string data { get; set; }
+        public int max_length_message { get; set; }
+        public int member_count { get; set; }
+        public string name { get; set; }
+    }
 
+    public class Inviter
+    {
+        public Metadata metadata { get; set; }
+        public string nickname { get; set; }
+        public string profile_url { get; set; }
+        public string user_id { get; set; }
+    }
+
+    public class File
+    {
+    }
+
+    public class Translations
+    {
+    }
+
+
+    public class LastMessage
+    {
+        public string channel_url { get; set; }
+        public long created_at { get; set; }
+        public string custom_type { get; set; }
+        public string data { get; set; }
+        public File file { get; set; }
+        public bool is_removed { get; set; }
+        public string mention_type { get; set; }
+        public IList<object> mentioned_users { get; set; }
+        public string message { get; set; }
+        public int message_id { get; set; }
+        public int message_survival_seconds { get; set; }
+        public string req_id { get; set; }
+        public bool silent { get; set; }
+        public Translations translations { get; set; }
+        public string type { get; set; }
+        public long updated_at { get; set; }
+        public User user { get; set; }
+    }
+
+    public class ChannelInfo
+    {
+        public Channel channel { get; set; }
+        public string channel_url { get; set; }
+        public string count_preference { get; set; }
+        public string cover_url { get; set; }
+        public int created_at { get; set; }
+        public string custom_type { get; set; }
+        public string data { get; set; }
+        public bool freeze { get; set; }
+        public string hidden_state { get; set; }
+        public long invited_at { get; set; }
+        public Inviter inviter { get; set; }
+        public bool is_access_code_required { get; set; }
+        public bool is_broadcast { get; set; }
+        public bool is_discoverable { get; set; }
+        public bool is_distinct { get; set; }
+        public bool is_ephemeral { get; set; }
+        public bool is_hidden { get; set; }
+        public bool is_muted { get; set; }
+        public bool is_public { get; set; }
+        public bool is_push_enabled { get; set; }
+        public bool is_super { get; set; }
+        public int joined_member_count { get; set; }
+        public LastMessage last_message { get; set; }
+        public int max_length_message { get; set; }
+        public int member_count { get; set; }
+        public string member_state { get; set; }
+        public int message_survival_seconds { get; set; }
+        public string my_role { get; set; }
+        public string name { get; set; }
+        public string push_trigger_option { get; set; }
+        public bool sms_fallback_enabled { get; set; }
+        public int sms_fallback_interval_sec { get; set; }
+        public long ts_message_offset { get; set; }
+        public int unread_mention_count { get; set; }
+        public int unread_message_count { get; set; }
+        public long user_last_read { get; set; }
+    }
+}
+namespace ChannelInfo
+{
+    public class Translations
+    {
+    }
+
+    public class Metadata
+    {
+    }
+
+    public class User
+    {
+        public bool is_blocked_by_me { get; set; }
+        public string nickname { get; set; }
+        public string user_id { get; set; }
+        public string profile_url { get; set; }
+        public Metadata metadata { get; set; }
+    }
+
+    public class File
+    {
+    }
+
+    public class LastMessage
+    {
+        public int message_survival_seconds { get; set; }
+        public string custom_type { get; set; }
+        public IList<object> mentioned_users { get; set; }
+        public Translations translations { get; set; }
+        public long updated_at { get; set; }
+        public bool is_removed { get; set; }
+        public User user { get; set; }
+        public File file { get; set; }
+        public string message { get; set; }
+        public string data { get; set; }
+        public bool silent { get; set; }
+        public string type { get; set; }
+        public object created_at { get; set; }
+        public string req_id { get; set; }
+        public string mention_type { get; set; }
+        public string channel_url { get; set; }
+        public int message_id { get; set; }
+    }
+
+    public class Channel
+    {
+        public string name { get; set; }
+        public int member_count { get; set; }
+        public string custom_type { get; set; }
+        public string channel_url { get; set; }
+        public int created_at { get; set; }
+        public string cover_url { get; set; }
+        public int max_length_message { get; set; }
+        public string data { get; set; }
+    }
+
+    public class Inviter
+    {
+        public string nickname { get; set; }
+        public string user_id { get; set; }
+        public string profile_url { get; set; }
+        public Metadata metadata { get; set; }
+    }
+
+    public class MainChannel
+    {
+        public object invited_at { get; set; }
+        public string custom_type { get; set; }
+        public bool is_ephemeral { get; set; }
+        public string member_state { get; set; }
+        public bool freeze { get; set; }
+        public object last_queried_message { get; set; }
+        public bool is_hidden { get; set; }
+        public bool is_push_enabled { get; set; }
+        public int member_count { get; set; }
+        public string my_role { get; set; }
+        public bool is_broadcast { get; set; }
+        public LastMessage last_message { get; set; }
+        public object user_last_read { get; set; }
+        public int unread_mention_count { get; set; }
+        public bool is_discoverable { get; set; }
+        public int joined_member_count { get; set; }
+        public string channel_url { get; set; }
+        public Channel channel { get; set; }
+        public int message_survival_seconds { get; set; }
+        public int unread_message_count { get; set; }
+        public bool is_distinct { get; set; }
+        public bool is_muted { get; set; }
+        public string hidden_state { get; set; }
+        public string cover_url { get; set; }
+        public bool is_public { get; set; }
+        public string data { get; set; }
+        public long ts_message_offset { get; set; }
+        public bool is_super { get; set; }
+        public string name { get; set; }
+        public int created_at { get; set; }
+        public bool is_access_code_required { get; set; }
+        public string push_trigger_option { get; set; }
+        public int max_length_message { get; set; }
+        public Inviter inviter { get; set; }
+        public string count_preference { get; set; }
+    }
+
+    public class Channels
+    {
+        public IList<MainChannel> channels { get; set; }
+        public string next { get; set; }
+    }
 }
