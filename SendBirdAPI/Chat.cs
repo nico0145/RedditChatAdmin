@@ -50,7 +50,7 @@ namespace SendBirdAPI
             Console.WriteLine("Obteniendo Token de autenticacion de SendBird...");
             Console.ResetColor();
             string sJson = client.DownloadString("https://s.reddit.com/api/v1/sendbird/me");
-            var jRet = Newtonsoft.Json.JsonConvert.DeserializeObject<sbTokenResponse>(sJson);
+            var jRet = Newtonsoft.Json.JsonConvert.DeserializeObject<SbTokenResponse>(sJson);
             return jRet.sb_access_token;
         }
         public Chat(string mchannel_url, string mapplication_id, string UserName, string Password)
