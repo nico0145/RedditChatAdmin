@@ -69,6 +69,7 @@
                 <BoxView Grid.Row="0" Grid.Column="2" VerticalOptions="Center"  />
                 <Button Grid.Row="0" Text="Unmute" x:Name="cmdUnMute" Grid.Column="2"  Clicked="cmdUnMute_Clicked"></Button>
             </Grid>
+            <Button Grid.Row="0" Text="Log out" x:Name="cmdLogout" Grid.Column="2"  Clicked="cmdLogout_Clicked"></Button>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

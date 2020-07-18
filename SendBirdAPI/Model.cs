@@ -247,7 +247,7 @@ namespace SendBirdAPI
         public Features features { get; set; }
         public bool can_edit_name { get; set; }
         public bool verified { get; set; }
-        public bool new_modmail_exists { get; set; }
+        public bool? new_modmail_exists { get; set; }
         public bool pref_autoplay { get; set; }
         public int coins { get; set; }
         public bool has_paypal_subscription { get; set; }

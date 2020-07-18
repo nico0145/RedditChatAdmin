@@ -1,4 +1,5 @@
-﻿using SendBirdAPI;
+﻿using Prism.Events;
+using SendBirdAPI;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -13,7 +14,10 @@ using Xamarin.Forms.Xaml;
 namespace MobileChatAdmin.View
 {
     public interface IBaseUrl { string Get(); }
-
+    public enum Mode
+    {
+        Login, Logout
+    }
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class LoginOauthView : ContentPage
     {
@@ -23,8 +27,10 @@ namespace MobileChatAdmin.View
         public string Token { set; get; }
         public Chat oChat { set; get; }
         public bool LoggedIn { set; get; }
-        public LoginOauthView(string WebSiteURL)
+        public Mode Mode { set; get; }
+        public LoginOauthView(string WebSiteURL, Mode mMode)
         {
+            Mode = mMode;
             InitializeComponent();
             LoggedIn = false;
             oVw = this.FindByName<WebView>("WebviewMain");
@@ -37,43 +43,54 @@ namespace MobileChatAdmin.View
         }
         private async void WebviewMain_Navigated(object sender, WebNavigatedEventArgs e)
         {
-            if (e.Url == "https://s.reddit.com/api/v1/sendbird/me")
+            if (Mode == Mode.Login)
             {
-                var sRet = GetJsonFromJSRetu(await oVw.EvaluateJavaScriptAsync("document.body.innerHTML"));
-                var jRet = Newtonsoft.Json.JsonConvert.DeserializeObject<SbTokenResponse>(sRet);
-                Token = jRet.sb_access_token;
-                oVw.Source = "https://www.reddit.com/user/me/about.json";
-            }
-            else if (e.Url.StartsWith("https://www.reddit.com/user/"))
-            {
-                var sRet = GetJsonFromJSRetu(await oVw.EvaluateJavaScriptAsync("document.body.innerHTML"));
-                var jRet = Newtonsoft.Json.JsonConvert.DeserializeObject<About>(sRet);
-                SetLoader();
-                UID = jRet.data.id;
-                try
+                if (e.Url == "https://s.reddit.com/api/v1/sendbird/me")
                 {
-                    oChat = new Chat(Token, AppId, UID);
-                    await oChat.Connect();
-                    LoggedIn = true;
-                    var frmMain = new Main(oChat);
-                    await Navigation.PushModalAsync(new NavigationPage(frmMain));
+                    var sRet = GetJsonFromJSRetu(await oVw.EvaluateJavaScriptAsync("document.body.innerHTML"));
+                    var jRet = Newtonsoft.Json.JsonConvert.DeserializeObject<SbTokenResponse>(sRet);
+                    Token = jRet.sb_access_token;
+                    oVw.Source = "https://www.reddit.com/user/me/about.json";
                 }
-                catch (Exception err)
+                else if (e.Url.StartsWith("https://www.reddit.com/user/"))
                 {
-                    await DisplayAlert("Alert", err.Message, "OK");
-                    LoggedIn = false;
+                    var sRet = GetJsonFromJSRetu(await oVw.EvaluateJavaScriptAsync("document.body.innerHTML"));
+                    var jRet = Newtonsoft.Json.JsonConvert.DeserializeObject<About>(sRet);
+                    SetLoader();
+                    UID = jRet.data.id;
+                    try
+                    {
+                        oChat = new Chat(Token, AppId, UID);
+                        await oChat.Connect();
+                        LoggedIn = true;
+                        var frmMain = new Main(oChat);
+                        await Navigation.PushModalAsync(new NavigationPage(frmMain));
+                    }
+                    catch (Exception err)
+                    {
+                        await DisplayAlert("Alert", err.Message, "OK");
+                        LoggedIn = false;
+                        await Navigation.PopAsync();
+                    }
+                }
+                else
+                {
                     await Navigation.PopAsync();
                 }
             }
             else
             {
-                await Navigation.PopAsync();
+                await oVw.EvaluateJavaScriptAsync("document.querySelectorAll(\"form[action='https://old.reddit.com/logout']\").item(0).querySelector(\"a\").click();");
+                await DisplayAlert("Alert", "Logged out!", "OK");
+                Mode = Mode.Login;
+                oVw.Source = @"https://www.reddit.com/login/";
+                //await Navigation.PopAsync();
             }
         }
 
         private void WebviewMain_Navigating(object sender, WebNavigatingEventArgs e)
         {
-            if (e.Url == "https://www.reddit.com/")
+            if (Mode == Mode.Login && e.Url == "https://www.reddit.com/")
             {
                 oVw.Source = "https://s.reddit.com/api/v1/sendbird/me";
             }

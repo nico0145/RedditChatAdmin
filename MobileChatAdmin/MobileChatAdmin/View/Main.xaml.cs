@@ -147,6 +147,11 @@ namespace MobileChatAdmin.View
             txtUser.Text = "";
             cmbTime.SelectedIndex = -1;
         }
+        private void cmdLogout_Clicked(object sender, EventArgs e)
+        {
+            var LoginAuth = new LoginOauthView(@"https://old.reddit.com/", Mode.Logout);
+            Navigation.PushModalAsync(new NavigationPage(LoginAuth));
+        }
     }
     public class PickerItem
     {

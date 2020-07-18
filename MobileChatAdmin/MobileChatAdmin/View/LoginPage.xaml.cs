@@ -26,7 +26,7 @@ namespace MobileChatAdmin.View
         {
             if (string.IsNullOrWhiteSpace(Code))
             {
-                var LoginAuth = new LoginOauthView(@"https://www.reddit.com/login/");
+                var LoginAuth = new LoginOauthView(@"https://www.reddit.com/login/", Mode.Login);
                 Navigation.PushModalAsync(new NavigationPage(LoginAuth));
             }
         }

@@ -69,6 +69,7 @@ namespace SendBirdAPI
             catch (WebException err)
             {
                 Console.WriteLine(err);
+                //? new System.IO.StreamReader(err.Response.GetResponseStream(), Encoding.UTF8).ReadToEnd() debug with this
             }
             return null;
         }
